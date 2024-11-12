@@ -77,7 +77,7 @@ make -j $(nproc)
 ```
 When the build is successful, please set the PYTHONPATH on .bashrc
 ```bash
-export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
+export PYTHONPATH=<path/to/curator>/tvm/python:$PYTHONPATH
 ```
 
 
