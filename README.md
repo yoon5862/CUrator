@@ -17,6 +17,7 @@ __All the prerequisite packages should be installed in a default directory.__
 
 __cuDNN library must be included in the CUDA library.__
 
+
 ## **Evaluated HuggingFace Models**
 * BERT
   * gaunernst/bert-tiny-uncased
@@ -33,10 +34,10 @@ __cuDNN library must be included in the CUDA library.__
   * meta-llama/Meta-Llama-3-8B-Instruct
 
 ## **Evaluated GPU Architectures**
-  - 70: Tesla V100-DGXS-32GB
-  - 80: NVIDIA A100-SXM4-80GB
-  - 86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
-  - 89: NVIDIA GeForce RTX 4090
+  - sm70: Tesla V100-DGXS-32GB
+  - sm80: NVIDIA A100-SXM4-80GB
+  - sm86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
+  - sm89: NVIDIA GeForce RTX 4090
 
 # **Setup CUrator**
 
