@@ -18,7 +18,7 @@ pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https
 ```
 **Step 2**: Clone the Curator repository in github:
 ```bash
-git clone https://github.com/yoon5862/CUrator.git
+git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
 **Step 3**: Config Curator before build:
