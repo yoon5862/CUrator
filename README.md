@@ -9,6 +9,7 @@
 - CUDA 11.4.4 or 12.0.0
 - CUDNN 8.9.7 or 8.9.5
 - Anaconda
+- gcc 11.4.0 and above
 
 
 # **Setup Curator**
