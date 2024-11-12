@@ -61,8 +61,8 @@ cp ./cmake/config.cmake ./build
 ```
 You can modify ./build/config.cmake file
 ```bash
-set(USE_LLVM <path/to/llvm/llvm-config>)
-set(USE_CUDA </path/to/cuda>) # examples /usr/lib/cuda-12.0
+set(USE_LLVM <path/to/llvm/bin>/llvm-config)
+set(USE_CUDA <path/to/cuda>) # For examples /usr/lib/cuda-12.0
 set(USE_CUTLASS ON) # OFF->ON
 set(USE_CUBLAS ON) # OFF->ON
 set(USE_CUDNN OFF) # OFF->ON
