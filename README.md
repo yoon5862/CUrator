@@ -91,7 +91,7 @@ cd <path/to/curator>/script
 ```
 
 # **LLM Inference with Curator**
-Perform the end-to-end LLM inference and measure the TTFT time:
+Perform the end-to-end LLM inference and measure the TTFT time in NVIDIA GeForce RTX 4090:
 ```bash
 cd <path/to/curator>/script
 
