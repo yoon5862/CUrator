@@ -38,9 +38,9 @@ __cuDNN library must be included in the CUDA library.__
   - 86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
   - 89: NVIDIA GeForce RTX 4090
 
-# **Setup Curator**
+# **Setup CUrator**
 
-**Step 1**: Clone the Curator repository on github:
+**Step 1**: Clone the CUrator repository on github:
 ```bash
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
@@ -89,7 +89,7 @@ cd <path/to/curator>/script
 ./create_model.sh > create_model.log
 ```
 
-# **LLM Inference with Curator**
+# **LLM Inference with CUrator**
 Perform the end-to-end LLM inference and measure the TTFT time on NVIDIA GeForce RTX 4090:
 ```bash
 cd <path/to/curator>/script
