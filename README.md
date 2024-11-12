@@ -2,7 +2,7 @@
 # CUrator
   CUrator is an efficient LLM execution engine with optimized integration of CUDA libraries(cuBLAS, and CUTLASS).
 
-# Prerequisite Packages and Supported Models
+# Prerequisite Packages, Supported Models and GPUs
 
 ## **Prerequisite Packages**
 - LLVM v10.0.0
@@ -16,6 +16,27 @@ __all the prerequiest packages need to be installed in a default directory.__
 
 
 __cuDNN library must be included in the CUDA library.__
+
+## **Evaluated HuggingFace Models**
+* BERT
+  * gaunernst/bert-tiny-uncased
+  * gaunernst/bert-mini-uncased
+  * gaunernst/bert-small-uncased
+  * gaunernst/bert-medium-uncased
+  * bert-base-uncased
+  * bert-large-uncased
+* GPT2
+  * gpt2
+  * gpt2-medium
+* Llama
+  * openlm-research/open_llama_3b
+  * meta-llama/Meta-Llama-3-8B-Instruct
+
+## **Evaluated GPU Architecture**
+  - 70: Tesla V100-DGXS-32GB
+  - 80: NVIDIA A100-SXM4-80GB
+  - 86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
+  - 89: NVIDIA GeForce RTX 4090
 
 # **Setup Curator**
 
@@ -60,26 +81,6 @@ export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
 If the build is successful, please set the PYTHONPATH on .bashrc
 
 
-## **Evaluated HuggingFace Models**
-* BERT
-  * gaunernst/bert-tiny-uncased
-  * gaunernst/bert-mini-uncased
-  * gaunernst/bert-small-uncased
-  * gaunernst/bert-medium-uncased
-  * bert-base-uncased
-  * bert-large-uncased
-* GPT2
-  * gpt2
-  * gpt2-medium
-* Llama
-  * openlm-research/open_llama_3b
-  * meta-llama/Meta-Llama-3-8B-Instruct
-
-## **Evaluated GPU Architecture**
-  - 70: Tesla V100-DGXS-32GB
-  - 80: NVIDIA A100-SXM4-80GB
-  - 86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
-  - 89: NVIDIA GeForce RTX 4090
 
 # **Convert HuggingFace Model to ONNX model**
 
