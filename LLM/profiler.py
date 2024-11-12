@@ -89,7 +89,7 @@ if __name__ == "__main__":
         bolt_rlt = bolt_module.benchmark(dev, number=2, repeat=10)
         print(f"BOLT: {bolt_rlt.mean * 1000} ms")
         inference_time = bolt_rlt.mean * 1000
-    elif "CUTLASS_FMHA" in target_lib:
+    elif "CUTLASS_FMHA" in target_lib and sm >= 80:
         cutlass_module = curator.cutlass_module_fmha(mod, params, curator_target)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
         print(f"CUTLASS w/ FMHA: {cutlass_rlt.mean * 1000} ms")

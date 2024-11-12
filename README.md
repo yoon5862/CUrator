@@ -12,6 +12,9 @@
 - CMake v3.18 and above
 - Anaconda
 
+__all the prerequiest packages need to be installed in a default directory.__
+
+
 __cuDNN library must be included in the CUDA library.__
 
 # **Setup Curator**
