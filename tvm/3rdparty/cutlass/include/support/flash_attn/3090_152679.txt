@@ -1,0 +1,56 @@
+flash_fwd_kernel.h(334): warning #177-D: variable "block_row_idx" was declared but never referenced
+          detected during:
+            instantiation of "void flash::compute_attn<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax,Params>(const Params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false, Params=Flash_fwd_params]" 
+flash.h(292): here
+            instantiation of "void flash_fwd_kernel<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax>(Flash_fwd_params) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false]" 
+flash.h(327): here
+            instantiation of "void run_flash_fwd<Kernel_traits,Is_dropout,Is_causal>(Flash_fwd_params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=true, Is_causal=true]" 
+flash.h(413): here
+            instantiation of "void run_mha_fwd_hdim64_64<T,Headdim_,Is_causal>(Flash_fwd_params &) [with T=cutlass::half_t, Headdim_=64, Is_causal=true]" 
+flash_attn.cu(6): here
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+          detected during:
+            instantiation of "void flash::compute_attn<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax,Params>(const Params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false, Params=Flash_fwd_params]" 
+flash.h(292): here
+            instantiation of "void flash_fwd_kernel<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax>(Flash_fwd_params) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false]" 
+flash.h(327): here
+            instantiation of "void run_flash_fwd<Kernel_traits,Is_dropout,Is_causal>(Flash_fwd_params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=true, Is_causal=true]" 
+flash.h(413): here
+            instantiation of "void run_mha_fwd_hdim64_64<T,Headdim_,Is_causal>(Flash_fwd_params &) [with T=cutlass::half_t, Headdim_=64, Is_causal=true]" 
+flash_attn.cu(6): here
+
+flash_fwd_kernel.h(335): warning #177-D: variable "block_col_idx" was declared but never referenced
+          detected during:
+            instantiation of "void flash::compute_attn<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax,Params>(const Params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false, Params=Flash_fwd_params]" 
+flash.h(292): here
+            instantiation of "void flash_fwd_kernel<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax>(Flash_fwd_params) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false]" 
+flash.h(327): here
+            instantiation of "void run_flash_fwd<Kernel_traits,Is_dropout,Is_causal>(Flash_fwd_params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=true, Is_causal=true]" 
+flash.h(413): here
+            instantiation of "void run_mha_fwd_hdim64_64<T,Headdim_,Is_causal>(Flash_fwd_params &) [with T=cutlass::half_t, Headdim_=64, Is_causal=true]" 
+flash_attn.cu(6): here
+
+flash_fwd_kernel.h(390): warning #177-D: variable "block_row_idx" was declared but never referenced
+          detected during:
+            instantiation of "void flash::compute_attn<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax,Params>(const Params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false, Params=Flash_fwd_params]" 
+flash.h(292): here
+            instantiation of "void flash_fwd_kernel<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax>(Flash_fwd_params) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false]" 
+flash.h(327): here
+            instantiation of "void run_flash_fwd<Kernel_traits,Is_dropout,Is_causal>(Flash_fwd_params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=true, Is_causal=true]" 
+flash.h(413): here
+            instantiation of "void run_mha_fwd_hdim64_64<T,Headdim_,Is_causal>(Flash_fwd_params &) [with T=cutlass::half_t, Headdim_=64, Is_causal=true]" 
+flash_attn.cu(6): here
+
+flash_fwd_kernel.h(391): warning #177-D: variable "block_col_idx" was declared but never referenced
+          detected during:
+            instantiation of "void flash::compute_attn<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax,Params>(const Params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false, Params=Flash_fwd_params]" 
+flash.h(292): here
+            instantiation of "void flash_fwd_kernel<Kernel_traits,Is_dropout,Is_causal,Is_local,Has_alibi,Is_even_MN,Is_even_K,Is_softcap,Return_softmax>(Flash_fwd_params) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=false, Is_causal=true, Is_local=false, Has_alibi=true, Is_even_MN=false, Is_even_K=true, Is_softcap=true, Return_softmax=false]" 
+flash.h(327): here
+            instantiation of "void run_flash_fwd<Kernel_traits,Is_dropout,Is_causal>(Flash_fwd_params &) [with Kernel_traits=Flash_fwd_kernel_traits<64, 64, 64, 4, false, false, cutlass::half_t, Flash_kernel_traits<64, 64, 64, 4, cutlass::half_t>>, Is_dropout=true, Is_causal=true]" 
+flash.h(413): here
+            instantiation of "void run_mha_fwd_hdim64_64<T,Headdim_,Is_causal>(Flash_fwd_params &) [with T=cutlass::half_t, Headdim_=64, Is_causal=true]" 
+flash_attn.cu(6): here
+
+slurmstepd-node03: error: *** JOB 152679 ON node03 CANCELLED AT 2024-10-22T15:57:14 ***
