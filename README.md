@@ -6,10 +6,10 @@
 
 ## **Prerequisite Packages**
 - LLVM v10.0.0
-- CUDA v11.4.4 (V100, RTX3090) or v12.0.0 (A6000, RTX4090, A100)
-- CUDNN v8.9.7 (V100, RTX3090) or v8.9.5 (A6000, RTX4090, A100)
-- gcc v11.4.0 and above
-- CMake v3.18 and above
+- CUDA v11.4.4 (V100, RTX3090) and v12.0.0 (A6000, RTX4090, A100)
+- CUDNN v8.9.7 (V100, RTX3090) and v8.9.5 (A6000, RTX4090, A100)
+- gcc v11.4.0 or above
+- CMake v3.18 or above
 - Anaconda
 
 __All the prerequisite packages should be installed in a default directory.__
