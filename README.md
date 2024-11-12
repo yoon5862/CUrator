@@ -39,7 +39,7 @@ __cuDNN library must be included in the CUDA library.__
   - sm86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
   - sm89: NVIDIA GeForce RTX 4090
 
-# **Setup CUrator**
+# **CUrator Setup**
 
 **Step 1**: Clone the CUrator repository on github:
 ```bash
