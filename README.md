@@ -10,16 +10,6 @@
 - CUDNN 8.9.7 or 8.9.5
 - Anaconda
 
-Install CUDA & CUDNN
-```bash
-wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda_12.0.0_525.60.13_linux.run
-sh cuda_12.0.0_525.60.13_linux.run --silent --toolkit --toolkitpath=<path/to/install>
-
-export PATH="<path/to/install>:$PATH"
-export LD_LIBRARY_PATH="<path/to/install>:$LD_LIBRARY_PATH"
-
-
-```
 
 
 
