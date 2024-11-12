@@ -7,23 +7,40 @@
 ## **Prerequisite Packages**
 - LLVM 10.0.0
 - CUDA 11.4.4 or 12.0.0
+- CUDNN 8.9.7 or 8.9.5
 - Anaconda
 
-# **Setup Curator**
-**Step 1**: Install Conda virtual environment, users can fllow command in your terminal or comment prompt:
+Install CUDA & CUDNN
 ```bash
-conda env create -f conda.yml --name curator
-conda activate curator
-pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
+wget https://developer.download.nvidia.com/compute/cuda/12.0.0/local_installers/cuda_12.0.0_525.60.13_linux.run
+sh cuda_12.0.0_525.60.13_linux.run --silent --toolkit --toolkitpath=<path/to/install>
+
+export PATH="<path/to/install>:$PATH"
+export LD_LIBRARY_PATH="<path/to/install>:$LD_LIBRARY_PATH"
+
+
 ```
-**Step 2**: Clone the Curator repository in github:
+
+
+
+**Step 1**: Clone the Curator repository in github:
 ```bash
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
+# **Setup Curator**
+**Step 2**: Install Conda virtual environment, users can fllow command in your terminal or comment prompt:
+```bash
+cd curator
+conda env create -f conda.yml --name curator
+conda activate curator
+pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
+```
+
 **Step 3**: Config Curator before build:
 ```bash
-cd curator/tvm
+cd ./tvm
+mkdir build
 cp ./cmake/config.cmake ./build
 ```
 and modify **./build/config.cmake** file
