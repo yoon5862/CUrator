@@ -2,7 +2,7 @@
 # CUrator
   CUrator is an efficient LLM execution engine with optimized integration of CUDA libraries(cuBLAS, and CUTLASS).
 
-# Prerequisite Packages, Supported Models and GPUs
+# Prerequisite Packages, Evaluated Models and GPUs
 
 ## **Prerequisite Packages**
 - LLVM v10.0.0
