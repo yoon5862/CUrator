@@ -32,7 +32,7 @@ __cuDNN library must be included in the CUDA library.__
   * openlm-research/open_llama_3b
   * meta-llama/Meta-Llama-3-8B-Instruct
 
-## **Evaluated GPU Architecture**
+## **Evaluated GPU Architectures**
   - 70: Tesla V100-DGXS-32GB
   - 80: NVIDIA A100-SXM4-80GB
   - 86: NVIDIA GeForce RTX 3090, NVIDIA RTX A6000
