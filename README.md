@@ -10,12 +10,14 @@
 - CUDNN 8.9.7 or 8.9.5
 - Anaconda
 
+
+# **Setup Curator**
+
 **Step 1**: Clone the Curator repository in github:
 ```bash
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
-# **Setup Curator**
 **Step 2**: Install Conda virtual environment, users can fllow command in your terminal or comment prompt:
 ```bash
 cd curator
@@ -33,7 +35,7 @@ cp ./cmake/config.cmake ./build
 and modify **./build/config.cmake** file
 ```bash
 set(USE_LLVM <path/to/llvm/llvm-config>)
-set(USE_CUDA </path/to/cuda>)
+set(USE_CUDA </path/to/cuda>) # xamples /usr/lib/cuda-12.0
 set(USE_CUTLASS ON) # OFF->ON
 set(USE_CUBLAS ON) # OFF->ON
 set(USE_CUDNN ON) # OFF->ON
