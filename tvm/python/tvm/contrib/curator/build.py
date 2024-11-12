@@ -95,7 +95,7 @@ def bolt_module(mod, params, sm, tmp_dir):
     
     return module
     
-def cutlass_module_natural(mod, params, target):
+def cutlass_module_natural(mod, params, target, model="gpt2"):
     
     mod, constant = rewrite_onnx(mod)
     params.update(constant)
@@ -104,26 +104,32 @@ def cutlass_module_natural(mod, params, target):
     fused_multi_head = False
     
     mod = partition_for_curator(mod, fmha=False)
+    
     mod, workspace = rewrite_cutlass(mod, target)
     params.update(workspace)
-    
     curator_target = tvm.target.Target(target, host)
-
-    with tvm.transform.PassContext(opt_level=3):
-        graph, mod, tmp_params = tvm.relay.build_module.build(mod, target=[cuda, curator_target])
-    params.update(tmp_params)
-        
-    tmp_dir = target["tmp_dir"]
-    lib_path = os.path.join(tmp_dir, "compile_natural.so")
-    mod.export_library(lib_path, workspace_dir=tmp_dir, cc="nvcc")
     
-    mod = tvm.runtime.load_module(lib_path)
-    module = graph_executor.create(graph, mod, dev)
-    module.set_input(**params)
+    tmp_dir = target["tmp_dir"]
+    
+    if "gpt2" in model or "bert" in model:
+        with tvm.transform.PassContext(opt_level=3):
+            lib = relay.build(mod, target=[cuda, curator_target], params=params)
+        lib = finalize_modules(lib, "compile_natural.so", tmp_dir)
+        module = graph_executor.GraphModule(lib["default"](dev))
+    else:
+        with tvm.transform.PassContext(opt_level=3):
+            graph, mod, tmp_params = tvm.relay.build_module.build(mod, target=[cuda, curator_target])
+        params.update(tmp_params)
+        lib_path = os.path.join(tmp_dir, "compile_natural.so")
+        mod.export_library(lib_path, workspace_dir=tmp_dir, cc="nvcc")
+        
+        mod = tvm.runtime.load_module(lib_path)
+        module = graph_executor.create(graph, mod, dev)
+        module.set_input(**params)
     
     return module
 
-def cutlass_module_fmha(mod, params, target):
+def cutlass_module_fmha(mod, params, target, model="gpt2"):
     
     mod, constant = rewrite_onnx(mod)
     params.update(constant)
@@ -132,24 +138,30 @@ def cutlass_module_fmha(mod, params, target):
     fused_multi_head = True
     
     mod = partition_for_curator(mod, fmha=True)
+    
     mod, workspace = rewrite_cutlass(mod, target)
     params.update(workspace)
     curator_target = tvm.target.Target(target, host)
-    
-    with tvm.transform.PassContext(opt_level=3):
-        graph, mod, tmp_params = tvm.relay.build_module.build(mod, target=[cuda, curator_target])
-    params.update(tmp_params)
-        
+
     tmp_dir = target["tmp_dir"]
-    lib_path = os.path.join(tmp_dir, "compile_fmha.so")
-    mod.export_library(lib_path, workspace_dir=tmp_dir, cc="nvcc")
     
-    mod = tvm.runtime.load_module(lib_path)
-    module = graph_executor.create(graph, mod, dev)
-    module.set_input(**params)
+    if "gpt2" in model or "bert" in model:
+        with tvm.transform.PassContext(opt_level=3):
+            lib = relay.build(mod, target=[cuda, curator_target], params=params)
+        lib = finalize_modules(lib, "compile_fmha.so", tmp_dir)
+        module = graph_executor.GraphModule(lib["default"](dev))
+    else:
+        with tvm.transform.PassContext(opt_level=3):
+            graph, mod, tmp_params = tvm.relay.build_module.build(mod, target=[cuda, curator_target])
+        params.update(tmp_params)
+        lib_path = os.path.join(tmp_dir, "compile_fmha.so")
+        mod.export_library(lib_path, workspace_dir=tmp_dir, cc="nvcc")
+        
+        mod = tvm.runtime.load_module(lib_path)
+        module = graph_executor.create(graph, mod, dev)
+        module.set_input(**params)
     
     return module
-
 
 def cutlass_module(mod, params, curator_target):
     print("Natural Module")

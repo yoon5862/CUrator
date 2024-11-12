@@ -42,7 +42,15 @@ if __name__ == "__main__":
     # sort
     sorted_data = sorted(profiled_lib, key=lambda x: x['inference'])
     
-    target_lib = sorted_data[0]["target_lib"]
+    target_lib = "CUTLASS"
+    for target in sorted_data:
+        target_lib = target["target_lib"]
+        
+        if target_lib == "CUrator":
+            continue
+        else:
+            break
+
     
     # set tuning parameter 
     host = tvm.target.Target("llvm")
@@ -86,19 +94,26 @@ if __name__ == "__main__":
         cublas_rlt = cublas_module.benchmark(dev, number=2, repeat=10)
         print(f"cuBLAS Selected: {cublas_rlt.mean * 1000} ms")
         inference_time = cublas_rlt.mean * 1000
-    elif "CUTLASS_FMHA Selected" in target_lib:
-        cutlass_module = curator.cutlass_module_fmha(mod, params, curator_target)
+    elif "CUTLASS_FMHA" in target_lib:
+        cutlass_module = curator.cutlass_module_fmha(mod, params, curator_target, model)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
         print(f"CUTLASS w/ FMHA Selected: {cutlass_rlt.mean * 1000} ms")
-        inference_time = cutlass_rlt.mean
+        inference_time = cutlass_rlt.mean * 1000
     elif "CUTLASS" in target_lib:
-        cutlass_module = curator.cutlass_module_natural(mod, params, curator_target)
+        cutlass_module = curator.cutlass_module_natural(mod, params, curator_target, model)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
         print(f"CUTLASS w/o FMHA Selected: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
     
+    print(f"Recording in ../LLM/{end_to_end_rlt_dir}")
     with open(end_to_end_rlt_dir, "a") as file:
       file.write(f"{model} batch: {batch}, seq_len: {seq_len}, {args.precision}")
       file.write("\n")
       file.write(f"CUrator: {inference_time}")
       file.write("\n")
+    
+    print(f"Recording in ../LLM/{inference_rlt_dir}")
+    json_info = {"target_lib": "CUrator", "inference": inference_time}
+    with open(inference_rlt_dir, "a") as file:
+        json.dump(json_info, file)
+        file.write("\n")

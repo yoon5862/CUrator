@@ -6,6 +6,8 @@ tmp_dir=$2
 
 cd ../LLM
 
+echo "Our Evaluation is Reported in curator/LLM/$tmp_dir"
+
 #CUTLASS BERT tiny
 python profiler.py --model=gaunernst/bert-tiny-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float16 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=gaunernst/bert-tiny-uncased --batch=4 --seq_len=512 --sm=$sm --precision=float16 --target_lib=CUTLASS --tmp_dir=$tmp_dir
@@ -169,3 +171,6 @@ python profiler.py --model=openlm-research/open_llama_3b --batch=8 --seq_len=512
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=1 --seq_len=512 --sm=$sm --precision=float16 --target_lib=cuBLAS --tmp_dir=$tmp_dir
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=4 --seq_len=512 --sm=$sm --precision=float16 --target_lib=cuBLAS --tmp_dir=$tmp_dir
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=8 --seq_len=512 --sm=$sm --precision=float16 --target_lib=cuBLAS --tmp_dir=$tmp_dir
+
+
+echo "Our Evaluation is Reported in curator/LLM/$tmp_dir"

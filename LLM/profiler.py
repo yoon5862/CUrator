@@ -90,17 +90,17 @@ if __name__ == "__main__":
         print(f"BOLT: {bolt_rlt.mean * 1000} ms")
         inference_time = bolt_rlt.mean * 1000
     elif "CUTLASS_FMHA" in target_lib and sm >= 80:
-        cutlass_module = curator.cutlass_module_fmha(mod, params, curator_target)
+        cutlass_module = curator.cutlass_module_fmha(mod, params, curator_target, model)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
         print(f"CUTLASS w/ FMHA: {cutlass_rlt.mean * 1000} ms")
-        inference_time = cutlass_rlt.mean
+        inference_time = cutlass_rlt.mean * 1000
     elif "CUTLASS" in target_lib:
-        cutlass_module = curator.cutlass_module_natural(mod, params, curator_target)
+        cutlass_module = curator.cutlass_module_natural(mod, params, curator_target, model)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
         print(f"CUTLASS w/o FMHA: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
     
-    print(f"Recording in {inference_rlt_dir}")
+    print(f"Recording in ../LLM/{inference_rlt_dir}")
     
     json_info = {"target_lib": target_lib, "inference": inference_time}
     with open(inference_rlt_dir, "a") as file:
