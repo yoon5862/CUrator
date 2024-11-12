@@ -75,7 +75,7 @@ cd <path/to/curator>/LLM
 python create_model.py --model=support/model --batch=1 --seq_len=512
 ```
 
-or run shell script
+or run shell script to create evaluated models
 ```bash
 cd <path/to/curator>/script
 ./create_model.sh > create_model.log
