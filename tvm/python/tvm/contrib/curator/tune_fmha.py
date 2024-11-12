@@ -406,7 +406,7 @@ class ProfileFMHA:
     
     if self.dtype == "float16":
       self.object_dir = self.object_dir + "_fp16"
-      self.rlt_dir + "_fp16"
+      self.rlt_dir = self.rlt_dir + "_fp16"
       if self.head_size % 8 != 0:
         self.object_dir = self.object_dir + "_corner"
         
@@ -444,6 +444,7 @@ class ProfileFMHA:
     if (self.batch, self.seq_len, self.head_num, self.head_size) in self.cache:
       tiling = self.cache[(self.batch, self.seq_len, self.head_num, self.head_size)]
       return tiling
+      
     
     json_file = self.rlt_dir + f"/{batch}_{seq_len}_{head_num}_{head_size}.json"
     

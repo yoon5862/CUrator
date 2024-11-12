@@ -51,7 +51,6 @@ if __name__ == "__main__":
             "swizzle_range": [8],
             "use_fast_math": True,
             "tmp_dir": tmp_dir,
-            # "target_node": args.target_node,
         }
     
     if mixedPrecision == True:
