@@ -5,12 +5,14 @@
 # Prerequisite Packages and Supported Models
 
 ## **Prerequisite Packages**
-- LLVM 10.0.0
-- CUDA 11.4.4 or 12.0.0
-- CUDNN 8.9.7 or 8.9.5
+- LLVM v10.0.0
+- CUDA v11.4.4 (V100, RTX3090) or v12.0.0 (A6000, RTX4090, A100)
+- CUDNN v8.9.7 (V100, RTX3090) or v8.9.5 (A6000, RTX4090, A100)
+- gcc v11.4.0 and above
+- CMake v3.18 and above
 - Anaconda
-- gcc 11.4.0 and above
 
+__cuDNN library must be included in the CUDA library.__
 
 # **Setup Curator**
 
@@ -36,11 +38,12 @@ cp ./cmake/config.cmake ./build
 and modify **./build/config.cmake** file
 ```bash
 set(USE_LLVM <path/to/llvm/llvm-config>)
-set(USE_CUDA </path/to/cuda>) # xamples /usr/lib/cuda-12.0
+set(USE_CUDA </path/to/cuda>) # examples /usr/lib/cuda-12.0
 set(USE_CUTLASS ON) # OFF->ON
 set(USE_CUBLAS ON) # OFF->ON
-set(USE_CUDNN ON) # OFF->ON
+set(USE_CUDNN ON) # OFF
 ```
+
 **Step 4**: Build Curator:
 ```bash
 cd ./build
@@ -76,12 +79,6 @@ export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
 # **Convert HuggingFace Model to ONNX model**
 
 CUrator need to convert the HuggingFace models to ONNX models:
-```bash
-cd <path/to/curator>/LLM
-# Setting supported model listed above, and Input dimension (batch, seq_len)
-python create_model.py --model=support/model --batch=1 --seq_len=512
-```
-
 or run shell script to create evaluated models
 ```bash
 cd <path/to/curator>/script
@@ -89,21 +86,7 @@ cd <path/to/curator>/script
 ```
 
 # **Inference LLM with CUrator**
-Inference end-to-end LLM TTFT and measure time:
-```bash
-cd <path/to/curator>/LLM
-# --model=support/models
-# --batch=1/4/8
-# --seq_len=512
-# --sm=70/80/86/89. setting GPU Architecture above
-# --precision=float32/float16
-# --target_lib=Ansor/BOLT/cuBLAS/CUTLASS/CUrator
-# --tmp_dir=path/to/log/profiling/data. The tmp_dir must be set differently for each GPU
-python profiling.py --model=<support/model> --batch=1 --seq_len=512 --sm=<SM> --precision=float16 --target_lib=CUrator --tmp_dir=./cutlass_<GPU_names>
-python curator.py --model=<support/model> --batch=1 --seq_len=512 --sm=<SM> --precision=float16 --tmp_dir=./cutlass_<GPU_names>
-```
-
-or run shell script to inference all evaluated LLMs
+Inference end-to-end Evaluated LLM TTFT and measure time running shell script
 ```bash
 cd <path/to/curator>/script
 
