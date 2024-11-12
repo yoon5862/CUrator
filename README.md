@@ -1,6 +1,6 @@
 
 # CUrator
-  CUrator is an efficient LLM execution engine with optimized integration of CUDA libraries(cuBLAS, and CUTLASS).
+  CUrator is an efficient LLM execution engine with optimized integration of CUDA libraries (cuBLAS and CUTLASS).
 
 # Prerequisite Packages, Evaluated Models and GPUs
 
@@ -40,12 +40,12 @@ __cuDNN library must be included in the CUDA library.__
 
 # **Setup Curator**
 
-**Step 1**: Clone the Curator repository in github:
+**Step 1**: Clone the Curator repository on github:
 ```bash
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
-**Step 2**: Follow the command in your terminal, install Conda virtual environment:
+**Step 2**: Follow the command in your terminal, to install Conda virtual environment:
 ```bash
 cd curator
 conda env create -f conda.yml --name curator
@@ -65,7 +65,7 @@ set(USE_LLVM <path/to/llvm/llvm-config>)
 set(USE_CUDA </path/to/cuda>) # examples /usr/lib/cuda-12.0
 set(USE_CUTLASS ON) # OFF->ON
 set(USE_CUBLAS ON) # OFF->ON
-set(USE_CUDNN ON) # OFF
+set(USE_CUDNN OFF) # ON
 ```
 
 **Step 4**: Build CUrator:
@@ -78,7 +78,6 @@ When the build is successful, please set the PYTHONPATH on .bashrc
 ```bash
 export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
 ```
-If the build is successful, please set the PYTHONPATH on .bashrc
 
 
 
