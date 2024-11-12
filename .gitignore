@@ -8,6 +8,7 @@ LLM/cutlass_rtx4090/*.tar.gz
 LLM/cutlass_rtx4090/*.so
 LLM/cutlass_rtx4090/*.o
 LLM/cutlass_rtx4090/*.cu
+LLM/cutlass_rtx4090/ansor_log
 
 LLM/onnx_file
 LLM/tmp
