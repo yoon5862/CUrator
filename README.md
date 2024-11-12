@@ -6,7 +6,7 @@
 
 ## **Prerequisite Packages**
 - LLVM 10.0.0
-- CUDA
+- CUDA 11.4.4 or 12.0.0
 - Anaconda
 
 # **Setup Curator**
