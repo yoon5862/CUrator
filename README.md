@@ -45,7 +45,7 @@ __cuDNN library must be included in the CUDA library.__
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
-**Step 2**: Follow the command the commands in your terminal, to install the Conda virtual environment:
+**Step 2**: Follow the commands in your terminal, to install the Conda virtual environment:
 ```bash
 cd curator
 conda env create -f conda.yml --name curator
