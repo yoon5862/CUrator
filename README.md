@@ -12,7 +12,7 @@
 - CMake v3.18 and above
 - Anaconda
 
-__all the prerequiest packages need to be installed in a default directory.__
+__All the prerequisite packages should be installed in a default directory.__
 
 
 __cuDNN library must be included in the CUDA library.__
@@ -45,7 +45,7 @@ __cuDNN library must be included in the CUDA library.__
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
-**Step 2**: Follow the command in your terminal, to install Conda virtual environment:
+**Step 2**: Commands in your terminal, to install the Conda virtual environment:
 ```bash
 cd curator
 conda env create -f conda.yml --name curator
@@ -53,13 +53,13 @@ conda activate curator
 pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
 ```
 
-**Step 3**: Configure Curator before build(You can modify ./build/config.cmake file):
+**Step 3**: Configure CUrator before build:
 ```bash
 cd ./tvm
 mkdir build
 cp ./cmake/config.cmake ./build
 ```
-and modify **./build/config.cmake** file
+You can modify ./build/config.cmake file
 ```bash
 set(USE_LLVM <path/to/llvm/llvm-config>)
 set(USE_CUDA </path/to/cuda>) # examples /usr/lib/cuda-12.0
