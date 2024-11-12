@@ -10,9 +10,6 @@
 - CUDNN 8.9.7 or 8.9.5
 - Anaconda
 
-
-
-
 **Step 1**: Clone the Curator repository in github:
 ```bash
 git clone https://github.com/yoon5862/CUrator.git curator
