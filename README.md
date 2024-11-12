@@ -24,7 +24,7 @@ __cuDNN library must be included in the CUDA library.__
 git clone https://github.com/yoon5862/CUrator.git curator
 ```
 
-**Step 2**: Install Conda virtual environment, users can fllow command in your terminal or comment prompt:
+**Step 2**: Follow the command in your terminal, install Conda virtual environment:
 ```bash
 cd curator
 conda env create -f conda.yml --name curator
@@ -32,7 +32,7 @@ conda activate curator
 pip install torch==2.1.2 torchvision==0.16.2 torchaudio==2.1.2 --index-url https://download.pytorch.org/whl/cu118
 ```
 
-**Step 3**: Config Curator before build:
+**Step 3**: Configure Curator before build(You can modify ./build/config.cmake file):
 ```bash
 cd ./tvm
 mkdir build
@@ -47,7 +47,7 @@ set(USE_CUBLAS ON) # OFF->ON
 set(USE_CUDNN ON) # OFF
 ```
 
-**Step 4**: Build Curator:
+**Step 4**: Build CUrator:
 ```bash
 cd ./build
 cmake ..
@@ -57,6 +57,8 @@ When the build is successful, please set the PYTHONPATH on .bashrc
 ```bash
 export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
 ```
+If the build is successful, please set the PYTHONPATH on .bashrc
+
 
 ## **Evaluated HuggingFace Models**
 * BERT
@@ -81,15 +83,14 @@ export PYTHONPATH=path/to/curator/tvm/python:$PYTHONPATH
 
 # **Convert HuggingFace Model to ONNX model**
 
-CUrator need to convert the HuggingFace models to ONNX models:
-or run shell script to create evaluated models
+CUrator needs to convert the HuggingFace models to ONNX models:
 ```bash
 cd <path/to/curator>/script
 ./create_model.sh > create_model.log
 ```
 
-# **Inference LLM with CUrator**
-Inference end-to-end Evaluated LLM TTFT and measure time running shell script
+# **LLM Inference with Curator**
+Perform the end-to-end LLM inference and measure the TTFT time:
 ```bash
 cd <path/to/curator>/script
 
