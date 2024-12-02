@@ -445,10 +445,8 @@ class ProfileFMHA:
       tiling = self.cache[(self.batch, self.seq_len, self.head_num, self.head_size)]
       return tiling
       
-    
-    json_file = self.rlt_dir + f"/{batch}_{seq_len}_{head_num}_{head_size}.json"
-    
     objs = self.profile()
+    json_file = self.rlt_dir + f"/{batch}_{seq_len}_{head_num}_{head_size}.json"
     for idx, obj in enumerate(objs):
       run_command = obj + f" -b {batch} -s {seq_len} -n {head_num} -h {head_size} -d {self.rlt_dir}"
       os.system(run_command)

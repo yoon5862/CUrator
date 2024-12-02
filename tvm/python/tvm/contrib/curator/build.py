@@ -513,7 +513,7 @@ def select_softmax_kernel(batch, MM, NN, input_dtype, out_dtype, sm, softmax_pro
 def select_fmha_kernel(batch, seq_len, head_num, head_size, input_dtype, output_dtype, fmha_profile):
     
     # assert input_dtype != "float32"
-    tiling = fmha_profile.profile_oracle(batch=batch, seq_len=seq_len, head_num=head_num, head_size=head_size)
+    tiling = fmha_profile.profile_oracle(input_dtype=input_dtype, output_dtype=output_dtype, batch=batch, seq_len=seq_len, head_num=head_num, head_size=head_size)
     return {
         "kQueriesPerBlock": tiling[0],
         "kKeysPerBlock": tiling[1],

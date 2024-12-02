@@ -121,7 +121,7 @@ float cutlass_strided_bathed_sgemm_${number}(
                                                     cutlass::gemm::GemmShape<${WM}, ${WN}, ${WK}>,
                                                     cutlass::gemm::GemmShape<1, 1, 1>,
                                                     cutlass::epilogue::thread::LinearCombination<float, 1, float, float>,
-                                                    cutlass::gemm::threadblock::GemmBatchedIdentityThreadblockSwizzle,
+                                                    cutlass::gemm::threadblock::GemmBatchedSplitKIdentityThreadblockSwizzle,
                                                     ${Stage},
                                                     ${Al},
                                                     ${Al},
