@@ -56,11 +56,16 @@ python curator.py --model=openlm-research/open_llama_3b --batch=1 --seq_len=512 
 python curator.py --model=openlm-research/open_llama_3b --batch=4 --seq_len=512 --sm=$sm --precision=float16 --tmp_dir=$tmp_dir
 python curator.py --model=openlm-research/open_llama_3b --batch=8 --seq_len=512 --sm=$sm --precision=float16 --tmp_dir=$tmp_dir
 
+
+if [ "$tmp_dir" = "./cutlass_a6000" ]; then
+
 # CUTLASS MetaLlama3-8B
 python curator.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=1 --seq_len=512 --sm=$sm --precision=float16 --tmp_dir=$tmp_dir
 python curator.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=4 --seq_len=512 --sm=$sm --precision=float16 --tmp_dir=$tmp_dir
 python curator.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=8 --seq_len=512 --sm=$sm --precision=float16 --tmp_dir=$tmp_dir
 
+
+fi
 
 ###############################################################################################
 

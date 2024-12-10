@@ -36,7 +36,9 @@ def instantiate_fmha_template(attrs, func_args, torch_var1, func_name):
       p.key_ptr = (ElementInputA*)k;
       p.value_ptr = (ElementInputA*)v;
       p.logsumexp_ptr = nullptr;
-      ${output_accum_ptr}
+      if(Attention::kNeedsOutputAccumulatorBuffer){
+        ${output_accum_ptr}
+      }
       
       p.output_ptr = (ElementInputA*)ptr_out;
       p.scale = 1.0f / sqrt(float(head_size));
@@ -74,7 +76,7 @@ def instantiate_fmha_template(attrs, func_args, torch_var1, func_name):
   
   dimension = [str(int(dim)) for dim in attrs["qkv_shape"]]
   dtype = str(attrs["ElementInputA"])
-  aux_map.update({"output_accum_ptr": "p.logsumexp_ptr = nullptr;"}) if len(func_args) < 7 else aux_map.update({"output_accum_ptr": "p.output_accum_ptr = (void*)(${arg6}->data);\n"})
+  aux_map.update({"output_accum_ptr": "p.logsumexp_ptr = nullptr;"}) if len(func_args) < 7 else aux_map.update({"output_accum_ptr": "p.output_accum_ptr = (float*)(${arg6}->data);\n"})
   
   aux_map["batch"] = dimension[0]
   aux_map["seq_len"] = dimension[1]
