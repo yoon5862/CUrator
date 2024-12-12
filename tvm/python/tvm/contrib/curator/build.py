@@ -105,8 +105,8 @@ def cutlass_module_natural(mod, params, target, model="gpt2", moduleTest=""):
     
     mod = partition_for_curator(mod, fmha=False)
     
-    # mod, workspace = rewrite_cutlass(mod, target)
-    # params.update(workspace)
+    mod, workspace = rewrite_cutlass(mod, target)
+    params.update(workspace)
     
     curator_target = tvm.target.Target(target, host)
     

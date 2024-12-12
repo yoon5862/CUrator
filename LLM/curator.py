@@ -116,4 +116,4 @@ if __name__ == "__main__":
     json_info = {"target_lib": "CUrator", "inference": inference_time}
     with open(inference_rlt_dir, "a") as file:
         json.dump(json_info, file)
-        file.write("\n")
+        file.write("\n") 

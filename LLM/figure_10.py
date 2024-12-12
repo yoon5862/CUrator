@@ -5,58 +5,55 @@ from tvm.contrib import curator
 from tvm.contrib import cutlass
 import argparse
 import json
-import pandas as pd
 import os
+
+from tvm import relay
+import numpy as np
+
+
+def create_batchMatmul(batch, M, N, K, dtype="float32"):
+    a = relay.var("lhs_input", shape=(batch, M, K), dtype=dtype)
+    b = relay.var("rhs_input", shape=(batch, N, K), dtype=dtype)
+    
+    matmul = relay.nn.batch_matmul(a, b, out_dtype=dtype, transpose_a=False, transpose_b=True)
+    
+    mod = tvm.IRModule.from_expr(matmul)
+    mod = relay.transform.InferType()(mod)
+    
+    b_arr = np.array([1 for _ in range(batch * N * K)]).reshape(batch, N, K).astype(dtype)
+    params = {"rhs_input": b_arr}
+    
+    return mod, params
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="End-to-End inference of LLM's First Token")
-    parser.add_argument('--model', type=str, default="gaunernst/bert-tiny-uncased", help="Model from onnx file")
     parser.add_argument('--batch', type=int, default=1, help="Batch size: 1/4/8")
-    parser.add_argument('--seq_len', type=int, default=512, help="Sequence length: 512")
     parser.add_argument('--sm', type=int, default=80, help="GPU Architecture: 70/80/86/89")
     parser.add_argument('--precision', type=str, default="float32", help="Support precision: float32/float16")
     parser.add_argument('--tmp_dir', type=str, default="./rtx4090", help="The tmp_dir must be set differently for each GPU")
     parser.add_argument('--target_lib', type=str, default="CUrator", help="Support library: Ansor/BOLT/cuBLAS/CUTLASS/CUrator")
     
     args = parser.parse_args()
-    model = args.model
     batch = args.batch
-    seq_len = args.seq_len
     mixedPrecision = False if args.precision == "float32" else True
     sm=int(args.sm)
     tmp_dir = args.tmp_dir
     target_lib = args.target_lib
-
     
-    inference_rlt = f"{model}_{batch}_{seq_len}_{args.precision}.json"
+    print("figure10")
+    print(f"{batch}, 512, 64, 512")
+    
+    inference_rlt = f"{batch}_{args.precision}.json"
     inference_rlt = inference_rlt.replace("/", "-")
     inference_rlt_dir = os.path.join(tmp_dir, inference_rlt)
     
-    lib_inference = {}
-    assert os.path.exists(inference_rlt_dir), "[Error] Please run profile_single.sh for CUTLASS and cuBLAS log"
     if os.path.exists(inference_rlt_dir):
-        json_file = []
+        json_file = {}
         
         with open(inference_rlt_dir, "r") as file:
             for line in file:
                 json_data = json.loads(line.strip())
-                # assert json_data["target_lib"] != target_lib, "Library already Profiled!"
-                json_file.append(json_data["target_lib"])
-                lib_inference[json_data["target_lib"]] = json_data["inference"]
-        
-        assert "CUTLASS" in json_file and "cuBLAS" in json_file, "[Error] Please run profile_single.sh for CUTLASS and cuBLAS log"
-    
-    
-    if "CUrator" in lib_inference.keys():
-      del lib_inference["CUrator"]
-    if "CUTLASS_FMHA" in lib_inference.keys():
-      del lib_inference["CUTLASS_FMHA"]
-      
-    cublas_inference = lib_inference["cuBLAS"]
-    for key, value in lib_inference.items():
-      lib_inference[key] = cublas_inference / lib_inference[key]
-    
-    lib_inference["name"] = f"{model}_{batch}_{seq_len}"
+                assert json_data["target_lib"] != target_lib, "Library already Profiled!"
     
     # set tuning parameter 
     host = tvm.target.Target("llvm")
@@ -76,27 +73,20 @@ if __name__ == "__main__":
     if mixedPrecision == True:
         curator_target["align_range"] = [1, 2, 4, 8]
     
-    if "bert" in model:
-        bert = LoadBERT(model, batch=batch, seq_len=seq_len, mixedPrecision=mixedPrecision)
-        mod, params = bert.getModels()
-    elif "llama" in model:
-        llama3 = LoadLLama3(model, batch=batch, seq_len=seq_len, mixedPrecision=mixedPrecision)
-        mod, params = llama3.getModels()
-    elif "gpt2" in model:
-        gpt2 = LoadGPT2(model, batch=batch, seq_len=seq_len, mixedPrecision=mixedPrecision)
-        mod, params = gpt2.getModels()
+    
+    mod, params = create_batchMatmul(batch, 512, 64, 512)
     
     host = tvm.target.Target("llvm")
     cuda = tvm.target.Target("cuda", host=host)
     dev = tvm.device(str(cuda), 0)
     
-    print(f"Model: {model}")
-    print(f"Input: ({batch}, {seq_len})")
     
+    model = "gpt2"
+    seq_len = 512
     inference_time = 0.0
     if "cuBLAS" in target_lib:
         cublas_module = curator.cublas_module(mod, params)
-        cublas_rlt = cublas_module.benchmark(dev, number=2, repeat=10)
+        cublas_rlt = cublas_module.benchmark(dev, number=20, repeat=100)
         print(f"cuBLAS: {cublas_rlt.mean * 1000} ms")
         inference_time = cublas_rlt.mean * 1000
     elif "Ansor" in target_lib:
@@ -116,17 +106,14 @@ if __name__ == "__main__":
         inference_time = cutlass_rlt.mean * 1000
     elif "CUTLASS" in target_lib:
         cutlass_module = curator.cutlass_module_natural(mod, params, curator_target, model)
-        cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
-        print(f"CUTLASS w/o FMHA & Original Graph IR: {cutlass_rlt.mean * 1000} ms")
+        cutlass_rlt = cutlass_module.benchmark(dev, number=20, repeat=100)
+        print(f"CUTLASS w/o FMHA & Figure 10: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
-    lib_inference["Original_IR"] = cublas_inference / inference_time
-    figure_9_csv = "figure_9.csv"
-    figure_9_dir = os.path.join("./", figure_9_csv)
-
-    df_log = pd.DataFrame([lib_inference])
-    df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
-
-    if os.path.exists(figure_9_csv):
-        df_log.to_csv(figure_9_csv, mode='a', header=False, index=False)
-    else:
-        df_log.to_csv(figure_9_csv, index=False)
+    
+    print(f"Recording in ../LLM/{inference_rlt_dir}")
+    
+    json_info = {"target_lib": target_lib, "inference": inference_time}
+    with open(inference_rlt_dir, "a") as file:
+        json.dump(json_info, file)
+        file.write("\n")
+    
