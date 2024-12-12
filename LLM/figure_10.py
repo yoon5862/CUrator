@@ -6,7 +6,7 @@ from tvm.contrib import cutlass
 import argparse
 import json
 import os
-
+import pandas as pd
 from tvm import relay
 import numpy as np
 
@@ -47,13 +47,25 @@ if __name__ == "__main__":
     inference_rlt = inference_rlt.replace("/", "-")
     inference_rlt_dir = os.path.join(tmp_dir, inference_rlt)
     
+    lib_inference = {}
+    assert os.path.exists(inference_rlt_dir), "[Error] Please run figure10.sh with \"git checkout moduleTest_21\""
     if os.path.exists(inference_rlt_dir):
-        json_file = {}
+        json_file = []
         
         with open(inference_rlt_dir, "r") as file:
             for line in file:
                 json_data = json.loads(line.strip())
-                assert json_data["target_lib"] != target_lib, "Library already Profiled!"
+                # assert json_data["target_lib"] != target_lib, "Library already Profiled!"
+                json_file.append(json_data["target_lib"])
+                lib_inference[json_data["target_lib"]] = json_data["inference"]
+        
+        assert "CUTLASS" in json_file and "cuBLAS" in json_file, "[Error] Please run figure10.sh with \"git checkout moduleTest_21\""
+    
+    if "CUrator" in lib_inference.keys():
+      del lib_inference["CUrator"]
+    if "CUTLASS_FMHA" in lib_inference.keys():
+      del lib_inference["CUTLASS_FMHA"]
+    
     
     # set tuning parameter 
     host = tvm.target.Target("llvm")
@@ -110,10 +122,26 @@ if __name__ == "__main__":
         print(f"CUTLASS w/o FMHA & Figure 10: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
     
-    print(f"Recording in ../LLM/{inference_rlt_dir}")
     
-    json_info = {"target_lib": target_lib, "inference": inference_time}
-    with open(inference_rlt_dir, "a") as file:
-        json.dump(json_info, file)
-        file.write("\n")
+    figure_10_csv = "figure_10.csv"
+    figure_10_dir = os.path.join("./", figure_10_csv)
+    
+    
+    cublas_time = lib_inference["cuBLAS"]
+    cutlass_time = lib_inference["CUTLASS"]
+    
+    csv_data = {}
+    csv_data["dimension"] = f"{batch}_512_64_512"
+    csv_data["figure10_(a)"] = inference_time / cutlass_time
+    csv_data["figure10_(b)"] = cublas_time / cutlass_time
+    
+    df_log = pd.DataFrame([csv_data])
+    df_log = df_log[["dimension", "figure10_(a)", "figure10_(b)"]]
+
+    if os.path.exists(figure_10_dir):
+        df_log.to_csv(figure_10_dir, mode='a', header=False, index=False)
+    else:
+        df_log.to_csv(figure_10_dir, index=False)
+    
+    
     

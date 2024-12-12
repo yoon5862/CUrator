@@ -669,8 +669,8 @@ class ProfileBatchedGemm:
                 fastest_cutlass_tile = value["dim"]
                 fastest_cutltass_split = value["split_k"]
                 
-                # if fastest_cutltass_split > 1:
-                #     continue
+                if fastest_cutltass_split > 1:
+                    continue
                 
                 break
         
@@ -1352,8 +1352,8 @@ class ProfileGemm:
                 fastest_cutltass_split = value["split_k"]
                 fastest_cutlass_sizzle = value["sizzle"]
                 
-                # if fastest_cutltass_split > 1:
-                #     continue
+                if fastest_cutltass_split > 1:
+                    continue
                 
                 break
         
