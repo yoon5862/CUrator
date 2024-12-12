@@ -36,15 +36,17 @@ if __name__ == "__main__":
   plt.figure(figsize=(30, 15)) 
   
   
-  plt.bar(idx - 2 * w, df["cuBLAS"], width=w, edgecolor='black')
-  plt.bar(idx - w, df["CUTLASS"], width=w, edgecolor='black')
-  plt.bar(idx, df["CUTLASS_FMHA"], width=w, edgecolor='black')
-  plt.bar(idx + w, df["CUrator"], width=w, edgecolor='black')
+  plt.bar(idx - 2 * w, df["cuBLAS"], width=w, edgecolor='black', label="cuBLAS")
+  plt.bar(idx - w, df["CUTLASS"], width=w, edgecolor='black', label="CUTLASS w/o FMHA")
+  plt.bar(idx, df["CUTLASS_FMHA"], width=w, edgecolor='black', label="CUTLASS w/ FMHA")
+  plt.bar(idx + w, df["CUrator"], width=w, edgecolor='black', label="CUrator")
   plt.xticks(idx - w * 0.5, df["name"], rotation=-90)
   plt.xticks(fontsize=30)
   plt.yticks(fontsize=30)
+  
+  plt.legend(fontsize=20, ncol=4)
   plt.tight_layout()
   
-  plt.savefig(f"{precision_}.png", dpi=300)
+  plt.savefig(f"{tmp_dir}/{precision_}.png", dpi=300)
   
   
