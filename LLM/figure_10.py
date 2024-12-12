@@ -124,7 +124,7 @@ if __name__ == "__main__":
     
     
     figure_10_csv = "figure_10.csv"
-    figure_10_dir = os.path.join("./", figure_10_csv)
+    figure_10_dir = os.path.join(tmp_dir, figure_10_csv)
     
     
     cublas_time = lib_inference["cuBLAS"]
