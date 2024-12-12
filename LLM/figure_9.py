@@ -122,7 +122,7 @@ if __name__ == "__main__":
     
     lib_inference["Original_IR"] = cublas_inference / inference_time
     figure_9_csv = "figure_9.csv"
-    figure_9_dir = os.path.join("./", figure_9_csv)
+    figure_9_dir = os.path.join(tmp_dir, figure_9_csv)
 
     df_log = pd.DataFrame([lib_inference])
     df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
