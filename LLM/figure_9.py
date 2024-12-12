@@ -127,10 +127,10 @@ if __name__ == "__main__":
     df_log = pd.DataFrame([lib_inference])
     df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
 
-    if os.path.exists(figure_9_csv):
-        df_log.to_csv(figure_9_csv, mode='a', header=False, index=False)
+    if os.path.exists(figure_9_dir):
+        df_log.to_csv(figure_9_dir, mode='a', header=False, index=False)
     else:
-        df_log.to_csv(figure_9_csv, index=False)
+        df_log.to_csv(figure_9_dir, index=False)
 
 
 
