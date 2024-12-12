@@ -120,17 +120,17 @@ if __name__ == "__main__":
         print(f"CUTLASS w/o FMHA & Original Graph IR: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
     
-lib_inference["Original_IR"] = cublas_inference / inference_time
-figure_9_csv = "figure_9.csv"
-figure_9_dir = os.path.join("./", figure_9_csv)
+    lib_inference["Original_IR"] = cublas_inference / inference_time
+    figure_9_csv = "figure_9.csv"
+    figure_9_dir = os.path.join("./", figure_9_csv)
 
-df_log = pd.DataFrame([lib_inference])
-df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
+    df_log = pd.DataFrame([lib_inference])
+    df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
 
-if os.path.exists(figure_9_csv):
-  df_log.to_csv(figure_9_csv, mode='a', header=False, index=False)
-else:
-  df_log.to_csv(figure_9_csv, index=False)
+    if os.path.exists(figure_9_csv):
+        df_log.to_csv(figure_9_csv, mode='a', header=False, index=False)
+    else:
+        df_log.to_csv(figure_9_csv, index=False)
 
 
 
