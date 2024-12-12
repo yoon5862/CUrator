@@ -53,11 +53,11 @@ if __name__ == "__main__":
     precision_ = ""
     # open csv
     if args.precision == "float32":
-      precision_ = "single"
+      precision_ = "figure_7"
     elif args.precision == "float16":
-      precision_ = "half"
+      precision_ = "figure_8"
     
-    inference_rlt = f"{precision_}_rlt.csv"
+    inference_rlt = f"{precision_}.csv"
     inference_dir = os.path.join("./", inference_rlt)
     
     df_log = pd.DataFrame([profiled_datas])
@@ -66,6 +66,5 @@ if __name__ == "__main__":
     
     if os.path.exists(inference_dir):
       df_log.to_csv(inference_dir, mode='a', header=False, index=False)
-      pass
     else:
       df_log.to_csv(inference_dir, index=False)

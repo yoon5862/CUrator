@@ -260,7 +260,7 @@ def instantiate_gemm_template(attrs, func_args):
   void* ptr_b = (void*)(${arg1}->data);
   ${bias_decl}
   void* ptr_out = (void*)(out0->data);
-  ${split_k_buffer}
+  // ${split_k_buffer}
 
   typename ${kernel}::Arguments arguments{
    problem_size,
@@ -271,16 +271,15 @@ def instantiate_gemm_template(attrs, func_args):
    {${alpha_beta}},
    ${batch}${split_k_slices}
   };
-  //size_t workspace_size = ${kernel}::get_workspace_size(arguments);
-  //cutlass::device_memory::allocation<uint8_t> workspace(workspace_size);
+  size_t workspace_size = ${kernel}::get_workspace_size(arguments);
+  cutlass::device_memory::allocation<uint8_t> workspace(workspace_size);
   ${kernel} gemm_op;
-  //cutlass::Status status = gemm_op.can_implement(arguments);
-  //CHECK(status == cutlass::Status::kSuccess);
-  cutlass::Status status = gemm_op.initialize(arguments${split_k_buffer_params}); //workspace.get()
-  //CHECK(status == cutlass::Status::kSuccess);
+  // cutlass::Status status = gemm_op.can_implement(arguments);
+  // CHECK(status == cutlass::Status::kSuccess);
+  cutlass::Status status = gemm_op.initialize(arguments, workspace.get()); //workspace.get() ${split_k_buffer_params}
+  // CHECK(status == cutlass::Status::kSuccess);
   status = gemm_op();
-  //workspace.release();
-  //CHECK(status == cutlass::Status::kSuccess);
+  // CHECK(status == cutlass::Status::kSuccess);
 """
     has_bias = "bias" in attrs["op_type"]
     is_gelu = "gelu" in attrs["op_type"]

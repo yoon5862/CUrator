@@ -24,17 +24,17 @@ python profiler.py --model=gaunernst/bert-small-uncased --batch=1 --seq_len=512 
 python profiler.py --model=gaunernst/bert-small-uncased --batch=4 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=gaunernst/bert-small-uncased --batch=8 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 
-# CUTLASS BERT medium
+# # CUTLASS BERT medium
 python profiler.py --model=gaunernst/bert-medium-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=gaunernst/bert-medium-uncased --batch=4 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=gaunernst/bert-medium-uncased --batch=8 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 
-# CUTLASS BERT base
+# # CUTLASS BERT base
 python profiler.py --model=bert-base-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=bert-base-uncased --batch=4 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=bert-base-uncased --batch=8 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 
-# CUTLASS BERT large
+# # CUTLASS BERT large
 python profiler.py --model=bert-large-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=bert-large-uncased --batch=4 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
 python profiler.py --model=bert-large-uncased --batch=8 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS --tmp_dir=$tmp_dir
@@ -67,7 +67,7 @@ fi
 
 
 
-###############################################################################################
+# ###############################################################################################
 
 # #CUTLASS BERT tiny
 python profiler.py --model=gaunernst/bert-tiny-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=CUTLASS_FMHA --tmp_dir=$tmp_dir
@@ -129,7 +129,7 @@ python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=8 --seq_l
 fi
 
 
-###############################################################################################
+# ###############################################################################################
 
 #CUTLASS BERT tiny
 python profiler.py --model=gaunernst/bert-tiny-uncased --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=cuBLAS --tmp_dir=$tmp_dir
@@ -186,7 +186,6 @@ python profiler.py --model=openlm-research/open_llama_3b --batch=8 --seq_len=512
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=1 --seq_len=512 --sm=$sm --precision=float32 --target_lib=cuBLAS --tmp_dir=$tmp_dir
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=4 --seq_len=512 --sm=$sm --precision=float32 --target_lib=cuBLAS --tmp_dir=$tmp_dir
 python profiler.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=8 --seq_len=512 --sm=$sm --precision=float32 --target_lib=cuBLAS --tmp_dir=$tmp_dir
-
 
 fi
 

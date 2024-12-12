@@ -95,7 +95,7 @@ def bolt_module(mod, params, sm, tmp_dir):
     
     return module
     
-def cutlass_module_natural(mod, params, target, model="gpt2"):
+def cutlass_module_natural(mod, params, target, model="gpt2", moduleTest=""):
     
     mod, constant = rewrite_onnx(mod)
     params.update(constant)
@@ -105,8 +105,9 @@ def cutlass_module_natural(mod, params, target, model="gpt2"):
     
     mod = partition_for_curator(mod, fmha=False)
     
-    mod, workspace = rewrite_cutlass(mod, target)
-    params.update(workspace)
+    # mod, workspace = rewrite_cutlass(mod, target)
+    # params.update(workspace)
+    
     curator_target = tvm.target.Target(target, host)
     
     tmp_dir = target["tmp_dir"]

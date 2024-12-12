@@ -5,6 +5,7 @@ from tvm.contrib import curator
 from tvm.contrib import cutlass
 import argparse
 import json
+import pandas as pd
 import os
 
 if __name__ == "__main__":
@@ -31,13 +32,31 @@ if __name__ == "__main__":
     inference_rlt = inference_rlt.replace("/", "-")
     inference_rlt_dir = os.path.join(tmp_dir, inference_rlt)
     
+    lib_inference = {}
+    assert os.path.exists(inference_rlt_dir), "[Error] Please run profile_single.sh for CUTLASS and cuBLAS log"
     if os.path.exists(inference_rlt_dir):
-        json_file = {}
+        json_file = []
         
         with open(inference_rlt_dir, "r") as file:
             for line in file:
                 json_data = json.loads(line.strip())
-                assert json_data["target_lib"] != target_lib, "Library already Profiled!"
+                # assert json_data["target_lib"] != target_lib, "Library already Profiled!"
+                json_file.append(json_data["target_lib"])
+                lib_inference[json_data["target_lib"]] = json_data["inference"]
+        
+        assert "CUTLASS" in json_file and "cuBLAS" in json_file, "[Error] Please run profile_single.sh for CUTLASS and cuBLAS log"
+    
+    
+    if "CUrator" in lib_inference.keys():
+      del lib_inference["CUrator"]
+    if "CUTLASS_FMHA" in lib_inference.keys():
+      del lib_inference["CUTLASS_FMHA"]
+      
+    cublas_inference = lib_inference["cuBLAS"]
+    for key, value in lib_inference.items():
+      lib_inference[key] = cublas_inference / lib_inference[key]
+    
+    lib_inference["name"] = f"{model}_{batch}_{seq_len}"
     
     # set tuning parameter 
     host = tvm.target.Target("llvm")
@@ -98,13 +117,22 @@ if __name__ == "__main__":
     elif "CUTLASS" in target_lib:
         cutlass_module = curator.cutlass_module_natural(mod, params, curator_target, model)
         cutlass_rlt = cutlass_module.benchmark(dev, number=2, repeat=10)
-        print(f"CUTLASS w/o FMHA: {cutlass_rlt.mean * 1000} ms")
+        print(f"CUTLASS w/o FMHA & Original Graph IR: {cutlass_rlt.mean * 1000} ms")
         inference_time = cutlass_rlt.mean * 1000
     
-    print(f"Recording in ../LLM/{inference_rlt_dir}")
+lib_inference["Original_IR"] = cublas_inference / inference_time
+figure_9_csv = "figure_9.csv"
+figure_9_dir = os.path.join("./", figure_9_csv)
+
+df_log = pd.DataFrame([lib_inference])
+df_log = df_log[["name", "cuBLAS", "Original_IR", "CUTLASS"]]
+
+if os.path.exists(figure_9_csv):
+  df_log.to_csv(figure_9_csv, mode='a', header=False, index=False)
+else:
+  df_log.to_csv(figure_9_csv, index=False)
+
+
+
     
-    json_info = {"target_lib": target_lib, "inference": inference_time}
-    with open(inference_rlt_dir, "a") as file:
-        json.dump(json_info, file)
-        file.write("\n")
     

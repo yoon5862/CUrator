@@ -67,7 +67,7 @@ python curator.py --model=meta-llama/Meta-Llama-3-8B-Instruct --batch=8 --seq_le
 
 fi
 
-###############################################################################################
+# ###############################################################################################
 
 
 echo "Our Evaluation is Reported in curator/LLM/$tmp_dir text file"
