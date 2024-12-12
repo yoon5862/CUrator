@@ -66,5 +66,6 @@ fi
 
 ###############################################################################################
 
+python figure.py --precision=float16 --tmp_dir=$tmp_dir
 
 echo "Our Relatvie is Reported in CURATOR_HOME/script csv file"

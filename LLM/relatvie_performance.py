@@ -58,7 +58,7 @@ if __name__ == "__main__":
       precision_ = "figure_8"
     
     inference_rlt = f"{precision_}.csv"
-    inference_dir = os.path.join("./", inference_rlt)
+    inference_dir = os.path.join(tmp_dir, inference_rlt)
     
     df_log = pd.DataFrame([profiled_datas])
     df_log = df_log[['name', 'cuBLAS', "CUTLASS", "CUTLASS_FMHA", "CUrator"]]
