@@ -96,10 +96,10 @@ Perform the end-to-end LLM inference and measure the TTFT time on NVIDIA GeForce
 cd <path/to/curator>/script
 
 # Single Precision Evaluation
-./profile_single.sh 89 ./cutlass_rtx4090 > profile_single.log
+./profile_single.sh 89 ./cutlass_rtx4090 > profile_single.log \\ The './cutlass_rtx4090' directory is in '<path/to/curator>/LLM'
 ./curator_single.sh 89 ./cutlass_rtx4090 > curator_single.log
 
 # Half Precision Evaluation
-./profile_half.sh 89 ./cutlass_rtx4090 > profile_half.log
+./profile_half.sh 89 ./cutlass_rtx4090 > profile_half.log \\ The './cutlass_rtx4090' directory is in '<path/to/curator>/LLM'
 ./curator_half.sh 89 ./cutlass_rtx4090 > curator_half.log
 ```
