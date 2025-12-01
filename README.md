@@ -103,3 +103,26 @@ cd <path/to/curator>/script
 ./profile_half.sh 89 ./cutlass_rtx4090 > profile_half.log \\ The './cutlass_rtx4090' directory is in '<path/to/curator>/LLM'
 ./curator_half.sh 89 ./cutlass_rtx4090 > curator_half.log
 ```
+
+# **Citation**
+
+If you use CUrator for your research, please cite our paper:
+
+```bash
+@inproceedings{CGO25_CUrator,
+author = {Lee, Yoon Noh and Yu, Yongseung and Park, Yongjun},
+title = {CUrator: An Efficient LLM Execution Engine with Optimized Integration of CUDA Libraries},
+year = {2025},
+isbn = {9798400712753},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3696443.3708944},
+doi = {10.1145/3696443.3708944},
+pages = {209–224},
+numpages = {16},
+location = {Las Vegas, NV, USA},
+series = {CGO '25}
+}
+```
+
+
